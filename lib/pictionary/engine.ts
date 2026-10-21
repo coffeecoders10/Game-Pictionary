@@ -1,7 +1,7 @@
 // Pure game engine: no React, no storage, no timers. See docs/PICTIONARY_SPEC.md.
 
 export const CATEGORIES = ["Animals & Places", "Objects", "Actions", "Food", "Random"] as const;
-export const TEAM_COLORS = ["red", "blue", "green", "yellow", "orange", "pink"] as const;
+export const TEAM_COLORS = ["red", "green", "yellow", "orange", "pink", "blue"] as const;
 export const MAX_TEAMS = 6;
 export const TEAM_NAME_MAX_LEN = 20;
 export const WIN_SCORE_MIN = 10;
