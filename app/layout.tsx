@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "A draw-and-guess party game for one shared screen.",
 };
 
-export const viewport: Viewport = { themeColor: "#0f0d0c", colorScheme: "dark" };
+export const viewport: Viewport = { themeColor: "#010e1a", colorScheme: "dark" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

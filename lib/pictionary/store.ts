@@ -4,6 +4,7 @@ import {
   isValidState,
   resolveTurn,
   revealCard,
+  withDefaults,
   dismissResult,
   showCard,
   type Card,
@@ -21,7 +22,7 @@ const listeners = new Set<() => void>();
 function read(): GameState | null {
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as GameState) : null;
+    return raw ? withDefaults(JSON.parse(raw) as GameState) : null;
   } catch {
     return null;
   }
@@ -40,6 +41,8 @@ function commit(next: GameState | null) {
 
 function snapshot(): GameState | null {
   if (current === UNLOADED) current = read();
+  // Also repairs a state still held in memory from before a setting existed (e.g. across hot reloads).
+  if (current !== null) current = withDefaults(current);
   return current;
 }
 

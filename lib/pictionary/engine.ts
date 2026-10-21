@@ -169,6 +169,16 @@ export const secondsRemaining = (state: GameState, now: number = Date.now()) =>
 export const getScoreboard = (state: GameState) =>
   state.teams.map((t) => ({ ...t, percent: Math.min(100, (t.score / state.winScore) * 100) }));
 
+/** Fills settings added after a game was saved, so older saves keep working. Same object if nothing is missing. */
+export function withDefaults(state: GameState): GameState {
+  if (typeof state.winScore === "number" && typeof state.turnSeconds === "number") return state;
+  return {
+    ...state,
+    winScore: typeof state.winScore === "number" ? state.winScore : DEFAULT_WIN_SCORE,
+    turnSeconds: typeof state.turnSeconds === "number" ? state.turnSeconds : DEFAULT_TURN_SECONDS,
+  };
+}
+
 /** Guards persisted state: it is only valid for the deck it was dealt from. */
 export function isValidState(value: unknown, deckSize: number): value is GameState {
   const s = value as GameState | null;
@@ -176,8 +186,9 @@ export function isValidState(value: unknown, deckSize: number): value is GameSta
     !!s &&
     typeof s === "object" &&
     s.deckSize === deckSize &&
-    typeof s.winScore === "number" &&
-    typeof s.turnSeconds === "number" &&
+    Number.isFinite(s.winScore) &&
+    Number.isFinite(s.turnSeconds) &&
+    (s.deadline === null || Number.isFinite(s.deadline)) &&
     Array.isArray(s.teams) &&
     s.teams.length > 0 &&
     Array.isArray(s.deckRemaining) &&

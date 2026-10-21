@@ -76,7 +76,7 @@ export function CardTurn({ state }: { state: GameState }) {
     setFaceUp(!faceUp);
   };
 
-  const progress = left / state.turnSeconds;
+  const progress = Math.min(1, Math.max(0, left / state.turnSeconds)) || 0;
   const R = 92;
   const C = 2 * Math.PI * R;
 

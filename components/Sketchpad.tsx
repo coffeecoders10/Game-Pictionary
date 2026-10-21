@@ -17,8 +17,8 @@ export function Sketchpad() {
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.lineWidth = 2.5;
-    ctx.strokeStyle = "#ece6df";
-    ctx.fillStyle = "#ece6df";
+    ctx.strokeStyle = "#e8eff5";
+    ctx.fillStyle = "#e8eff5";
 
     let drawing = false;
     const point = (e: PointerEvent) => {
